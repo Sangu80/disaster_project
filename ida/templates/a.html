@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>IDA</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+.w3-container .search-container {
+  float: right;
+}
+.w3-container input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
+}
+
+.w3-container .search-container button {
+  float: right;
+  padding: 6px 10px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+}
+
+.w3-container .zz {
+	font-style: normal;
+    font-size: 17px;
+
+}
+.topnav .search-container button:hover {
+  background: #ccc;
+}
+</style>
+<body>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64"><b>An Intelligent Disaster Assistant</b></h3>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Helpline</a> 
+    <a href="{{url_for('audio')}}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Unpriortized Text</a> 
+    <a href="{{url_for('pred')}}" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Priortized Text</a> 
+    <a href="#designers" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">UnPriortized Tweets</a> 
+    <a href="#packages" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Priortized Tweets</a> 
+    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">HeatMap and Routing</a>
+  </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+  <span>An Intelligent Disaster Assistant</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- Header -->
+  <div class="w3-container" style="margin-top:80px" id="showcase">
+    <h1 class="w3-jumbo"><b>Emergency and Helpline Department</b></h1>
+    
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+  </div>
+  
+  <!-- Photo grid (modal) -->
+  <!-- Services -->
+  <div class="w3-container" id="showcase" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Unpriortized Incoming Texts and Images.</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <p>It contains all the incoming texts, location and pictures from our users. 
+    </p>
+    <table border="1px">
+      <tr>
+        <td>User Id</td>
+        <!-- <td>Priority Score</td> -->
+        <td>Text</td>
+      </tr>
+      {% for item in document %}
+      <TR>
+         <TD class="c2">{{item}}</TD>
+         <TD class="c3">{{document[item]}}</TD>
+      </TR>
+      {% endfor %}
+      </table>
+      <hr><br>
+  <button><a href="{{url_for('pred')}}">Prioritize</a></button>
+  </div>
+  <div class="w3-row-padding">
+    <div class="w3-half">
+      
+      <!-- <img src="/w3images/bedroom.jpg" style="width:100%" onclick="onClick(this)" alt="Bedroom and office in one space">
+      <img src="/w3images/livingroom2.jpg" style="width:100%" onclick="onClick(this)" alt="Scandinavian design"> -->
+    </div>
+  </div>
+
+  <!-- Modal for full size images on click-->
+  <div id="modal01" class="w3-modal w3-black" style="padding-top:0" onclick="this.style.display='none'">
+    <span class="w3-button w3-black w3-xxlarge w3-display-topright">×</span>
+    <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+      <img id="img01" class="w3-image">
+      <p id="caption"></p>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <div class="w3-container" id="services" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Priortized Texts.</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <p>We use a Machine learning and deep-leaarning model to priortize the texts, and audio from the users, to provide effecient quick remedy.
+    </p>
+    <table border="1px">
+      <tr>
+        <td>Image</td>
+        <td>User Id</td>
+        <td>Priority Score</td>
+        <td>Text</td>
+      </tr>
+      {% for item in df %}
+      <TR>
+         <TD class="c1"><IMG src="{{url_d[item[0]]}}" height="100px" width="100px" onerror=this.src="https://nplusonemag.com/wp-content/uploads/2017/09/37178284932_44dedea535_z.jpg"> ></TD>
+         <TD class="c2">{{item[0]}}</TD>
+         <TD class="c3">{{item[1]}}</TD>
+         <td>{{document[item[0]]}}</td>
+         <!-- <TD class="c4"><SPAN>{{item.position}}</SPAN></TD>
+         <TD class="c5"><SPAN>{{item.status}}</SPAN></TD> -->
+      </TR>
+      {% endfor %}
+      </table>
+  </div>
+  
+  <!-- Designers -->
+  <div class="w3-container" id="designers" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Unpriortized Tweets.</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <div class="search-container">
+    <form action="/">
+      <input type="text" placeholder="Search.." name="search">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+    
+  </div>
+    <p>The inflow of tweets with #EmergencyName, as there are around 5x more tweets during a disaster. </p>
+    
+   <p><blockquote class="twitter-tweet"><p lang="en" dir="ltr">Terai in trouble! Flood everywhere!small help can bring big change in their lives!lets help! <a href="https://twitter.com/iamsrk?ref_src=twsrc%5Etfw">@iamsrk</a> u r the reason behind this unity! Thnx! <a href="https://t.co/TSeo6H7BDu">pic.twitter.com/TSeo6H7BDu</a></p>&mdash; SRK Fan Club NEPAL (@club_nepal) <a href="https://twitter.com/club_nepal/status/896421058256830464?ref_src=twsrc%5Etfw">August 12, 2017</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+   <blockquote class="twitter-tweet"><p lang="en" dir="ltr"><a href="https://twitter.com/hashtag/Nepalfloods?src=hash&amp;ref_src=twsrc%5Etfw">#Nepalfloods</a>: Death toll rises to 78; 35,000 houses inundated, thousands displaced <a href="https://t.co/4stFAz7xrx">https://t.co/4stFAz7xrx</a></p>&mdash; Firstpost (@firstpost) <a href="https://twitter.com/firstpost/status/897068499700334592?ref_src=twsrc%5Etfw">August 14, 2017</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+   <blockquote class="twitter-tweet"><p lang="en" dir="ltr">Monsoon 2019 deluge<br>The monsoon arrived late, but when it did it burst with vengeance. Eastern <a href="https://twitter.com/hashtag/Nepal?src=hash&amp;ref_src=twsrc%5Etfw">#Nepal</a> has got 500mm of <a href="https://twitter.com/hashtag/rain?src=hash&amp;ref_src=twsrc%5Etfw">#rain</a> since Thursday, Simara received 300mm just on Friday alone, and <a href="https://twitter.com/hashtag/Kathmandu?src=hash&amp;ref_src=twsrc%5Etfw">#Kathmandu</a> got 150mm in 12 hours on Friday. <br>More: <a href="https://t.co/qaLOHIEDM8">https://t.co/qaLOHIEDM8</a><a href="https://twitter.com/hashtag/NepalFlood?src=hash&amp;ref_src=twsrc%5Etfw">#NepalFlood</a> <a href="https://t.co/lOjO2yHVoV">pic.twitter.com/lOjO2yHVoV</a></p>&mdash; Nepali Times (@NepaliTimes) <a href="https://twitter.com/NepaliTimes/status/1150074937584975873?ref_src=twsrc%5Etfw">July 13, 2019</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+   
+   <a class="twitter-timeline" href="https://twitter.com/DDNewslive?ref_src=twsrc%5Etfw" data-tweet-limit="3" data-width="300"
+  data-height="300">Tweets by DDNewslive</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+   
+    
+  </div>
+
+  
+
+   <!-- Priortized tweet -->
+  <div class="w3-container" id="packages" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Priortized Tweets and Content Word Based Tweet Summarization (COWTS)</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <p>We use a Operation Research Techniques like Primal and Dual methods to priortize the Tweets.</p>
+    <h3 class="zz"><b>
+    -----------------
+    MEA opens 24 hour Control Room in Delhi for queries regarding the Nepal Earthquake . 011 2301 2113 011 2301 4104 011 2301 7905<br>
+--------------
+: At least 150 people killed in Kathmandu , 1 in China , 10 in Pokhara , 2 at Mount Everest Base Camp and 11 in India <br>
+--------------
+: USGS reports a M5 earthquake 31km NNW of Nagarkot , Nepal on 4/25 / 15 @ 9:30 : 29 UTC quake<br>
+--------------
+
+Nepal's Home Ministry Says at Least 71 People Killed in the Earthquake<br>
+--------------
+Raw : Powerful Earthquake Rocks Nepal AssociatedPress Associated Press news<br>
+--------------
+Strong Earthquake Strikes Nepal Near Its Capital , Katmandu - New York Times<br>
+--------------
+: .. Indian Embassy Helpline in Nepal + 9779851107 021<br>
+--------------
+: Patan Durbar Square after earthquake<br>
+--------------
+: 6 NDRF teams leave for Nepal and 5 NDRF teams leave for North Bihar . NepalEarthquake<br>
+--------------
+    <b></h1>
+    
+  </div>
+
+  
+  <!-- GMPLOT -->
+  <div class="w3-container" id="packages" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Heatmap</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <p>We use a Dijkstra Algorithm for effective Path Routing
+    </p>
+    <a href="{{url_for('plot')}}" target="_blank">GMPLOT</a>
+  </div>
+  
+  <div class="w3-container" id="contact" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>For Emergency Please contact.</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <p> Ready for Help and at your service</p>
+    <form action="/action_page.php" target="_blank">
+      <div class="w3-section">
+        <label>Name</label>
+        <input class="w3-input w3-border" type="text" name="Name" required>
+      </div>
+      <div class="w3-section">
+        <label>Email</label>
+        <input class="w3-input w3-border" type="text" name="Email" required>
+      </div>
+      <div class="w3-section">
+        <label>Message</label>
+        <input class="w3-input w3-border" type="text" name="Message" required>
+      </div>
+      <button type="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">Send Message</button>
+    </form>  
+  </div>
+
+<!-- End page content -->
+</div>
+
+<!-- W3.CSS Container -->
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+</script>
+
+</body>
+</html>
